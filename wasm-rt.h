@@ -51,6 +51,7 @@ typedef enum {
 #else
   WASM_RT_TRAP_EXHAUSTION, /** Call stack exhausted. */
 #endif
+  WASM_RT_TRAP_FUEL_EXHAUSTION, // Run out of fuel
 } wasm_rt_trap_t;
 
 
@@ -195,5 +196,6 @@ void wasm_rt_free(void) {
 }
 
 void wasm_rt_trap(wasm_rt_trap_t code) {
-  panic("ERROR WASM TRAP code: &u", code);
+  pr_err("wasm_rt_trap: code=%d\n", (int)code);
+  WARN_ON_ONCE(1);
 }

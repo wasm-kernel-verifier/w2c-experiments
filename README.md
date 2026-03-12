@@ -15,3 +15,10 @@ What's currently in the repo?
 - run `make` to generate add-driver.ko, insmod the add-driver.ko, write two numbers to /proc/add, read the sum from /proc/add, rmmod the add_driver, run dmesg to see print statements.
 
 
+# Loop Experiment
+
+- orig-loop.c executes a trivial loop with 100 iterations. 
+- Compile to loop.wasm through 'clang --target=wasm32 -O2 -nostdlib -Wl,--no-entry -Wl,--export-all -o loop.wasm orig-loop.c'
+- Get loop.c and loop.h through ./wabt/build/wasm2c loop.wasm -o loop.c
+- Clean up unnecessary math functions and implement helpers in wasm-rt-impl.c
+- insmod shows wasm_rt_trap: code=11 when fuel set below 200
