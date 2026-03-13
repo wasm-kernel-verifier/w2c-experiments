@@ -6,7 +6,7 @@ SEC("tp/syscalls/sys_enter_execve")
 int detect_execve() {
   bpf_printk("%s\n", "execve called");
   bpf_printk("starting benchmarks!\n");
-  __u64 n = 1000000;
+  __u64 n = 10000;
   __u64 test = 0;
   __u64 start = bpf_ktime_get_ns();
   for (int i = 0; i < n; i++) {
