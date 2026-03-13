@@ -9,7 +9,6 @@
 #include <linux/kthread.h>
 #include <linux/atomic.h>
 #include <linux/ktime.h>
-#include <linux/string.h>
 
 // Module metadata
 MODULE_AUTHOR("emma");
@@ -21,16 +20,16 @@ static struct proc_dir_entry *memfunc_proc_entry;
 char memfunc(int n) {
     char src[500];
     char dst[500];
-    memset(src, 123, 500);
-    memcpy(dst, src, 500);
+    __builtin_memset(src, 123, 500);
+    __builtin_memcpy(dst, src, 500);
     return dst[n];
 }
 
 static ssize_t read(struct file *file, char __user *buf, size_t count, loff_t *ppos) {
     if (*ppos > 0)
         return 0;
-    u64 start = ktime_get_ns();
     int n = 10000;
+    u64 start = ktime_get_ns();
     for (int i = 0; i < n; i++) {
         memfunc(i % 500);
     }

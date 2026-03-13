@@ -4,7 +4,7 @@ subdir-ccflags-y += -I$(src)
 # obj-m += loop-test/loop-driver.o
 # obj-m += timed-loop-test/timed-loop-driver.o
 # obj-m += recursion-test/recursion-driver.o
-# obj-m += benchmark/memfunc-driver.o
+obj-m += benchmark/memfunc-driver.o
 obj-m += benchmark/r-memfunc-driver.o
 
 all:
