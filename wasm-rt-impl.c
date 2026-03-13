@@ -22,9 +22,6 @@ void wasm_rt_consume_fuel(uint64_t n) {
 	wasm_rt_fuel -= n;
 }
 
-static bool g_wasm_rt_initialized = false;
-uint32_t wasm_rt_call_stack_depth = 0;
-
 void wasm_rt_allocate_memory(wasm_rt_memory_t* mem,
                              uint32_t initial_pages,
                              uint32_t max_pages,
