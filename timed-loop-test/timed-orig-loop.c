@@ -1,5 +1,3 @@
-#include <stdint.h>
-
 int main(void) {
     volatile int counter = 0;
     while (1) {

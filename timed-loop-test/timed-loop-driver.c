@@ -19,7 +19,7 @@ static int __init loop_driver_init(void) {
     u64 start_time = ktime_get_ns();
 
     // small fuel to witness exhaustion
-    wasm_rt_set_fuel(10000000);
+    wasm_rt_set_fuel(1000000);
     wasm2c_0x24timed0x2Dloop0x2Ewasm_instantiate(&module_instance);
     w2c_0x24timed0x2Dloop0x2Ewasm_0x5F_main_void(&module_instance);
 
