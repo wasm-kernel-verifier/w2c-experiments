@@ -13,14 +13,13 @@ MODULE_LICENSE("GPL");
 static w2c_0x24loop0x2Ewasm module_instance;
 
 static int __init loop_driver_init(void) {
-    int ret = 0;
     wasm_rt_init();
 
     // small fuel to witness exhaustion
     wasm_rt_set_fuel(10);
     wasm2c_0x24loop0x2Ewasm_instantiate(&module_instance);
     w2c_0x24loop0x2Ewasm_0x5F_main_void(&module_instance);
-    return ret;
+    return 0;
 }
 
 static void __exit loop_driver_exit(void) {
