@@ -18,8 +18,8 @@ MODULE_LICENSE("GPL");
 
 static struct proc_dir_entry *needle_proc_entry;
 
-static char needle[5];
-static char haystack[10];
+volatile static char needle[5];
+volatile static char haystack[10];
 
 static void populate(void) {
     for (int i = 0; i < 5; i++) {

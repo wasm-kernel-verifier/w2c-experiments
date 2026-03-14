@@ -15,7 +15,7 @@ uint64_t wasm_rt_get_fuel(void) {
 }
 
 void wasm_rt_consume_fuel(uint64_t n) {
-	if (n > wasm_rt_fuel) {
+	if (__builtin_expect(!!(n > wasm_rt_fuel), 0)) {
 		wasm_rt_trap(WASM_RT_TRAP_FUEL_EXHAUSTION);
 		return;
 	}

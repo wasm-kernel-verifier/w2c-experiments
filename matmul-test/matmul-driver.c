@@ -22,12 +22,17 @@ static struct proc_dir_entry *matmul_proc_entry;
 static w2c_0x24matmul0x2Ewasm module_instance;
 
 static ssize_t benchmark_matmul(struct file *file, char __user *buf, size_t count, loff_t *ppos) {
-    u64 start_time = ktime_get_ns();
-    int result = w2c_0x24matmul0x2Ewasm_matmul(&module_instance);
-    u64 end_time = ktime_get_ns();
-    u64 total_time = end_time - start_time;
-    printk(KERN_INFO "matmul-driver: total_ns=%llu\n", total_time);
-    printk(KERN_INFO "matmul result: %d\n", result);
+    w2c_0x24matmul0x2Ewasm_populate(&module_instance);
+    int num = 10;
+    int result = 0;
+    u64 times[num];
+    for (int i = 0; i < num; i++) {
+        u64 start_time = ktime_get_ns();
+        result = w2c_0x24matmul0x2Ewasm_matmul(&module_instance);
+        times[i] = ktime_get_ns() - start_time;
+        printk(KERN_INFO "total_ns=%llu ____", times[i]);
+    }
+    printk(KERN_INFO "\nraw matmul result: %d\n", result);
     return 0;
 }
 
@@ -41,7 +46,6 @@ static int __init matmul_driver_init(void) {
     wasm_rt_init();
     wasm_rt_set_fuel(1000000);
     wasm2c_0x24matmul0x2Ewasm_instantiate(&module_instance);
-    w2c_0x24matmul0x2Ewasm_populate(&module_instance);
     return 0;
 }
 

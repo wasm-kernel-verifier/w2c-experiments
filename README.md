@@ -23,3 +23,18 @@ What's currently in the repo?
 - Get loop.c and loop.h through ./wabt/build/wasm2c loop-test/loop.wasm -o loop-test/loop.c
 - Clean up unnecessary math functions and implement helpers in wasm-rt-impl.c
 - insmod shows wasm_rt_trap: code=11 when fuel set below 200
+
+
+
+# HOW TO RUN THE eBPF BENCHMARK
+To compile e-memfunc.c:
+clang -target bpf -g -O2 -c e-memfunc.c -o e-memfunc.o
+
+To load and attach the .o:
+sudo bpftool prog load e-memfunc.o /sys/fs/bpf/memfunc autoattach
+
+To see trace log:
+sudo bpftool prog tracelog
+
+To remove:
+sudo rm /sys/fs/bpf/memfunc

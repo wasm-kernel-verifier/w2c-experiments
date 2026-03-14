@@ -8,13 +8,10 @@ subdir-ccflags-y += -I$(src)
 # obj-m += memfunc-test/r-memfunc-driver.o
 obj-m += matmul-test/matmul-driver.o
 obj-m += matmul-test/r-matmul-driver.o
-
-# ccflags-remove-y += -fmin-function-alignment=16
-# ccflags-remove-y += -fconserve-stack
-# ccflags-remove-y += -mrecord-mcount
-# ccflags-remove-y += -fsanitize=bounds-strict
+# obj-m += needle-test/needle-driver.o
+# obj-m += needle-test/raw-needle-driver.o
 
 all:
-	make V=1 -C /lib/modules/$(uname -r)/build M=$(PWD) modules 2>&1 | sed -n '1,200p'
+	make LLVM=1 CC=/home/haibibgoogle/w2c-experiments/clang-filter.sh -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean

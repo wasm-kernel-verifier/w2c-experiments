@@ -35,7 +35,7 @@ static ssize_t read(struct file *file, char __user *buf, size_t count, loff_t *p
         result = w2c_needle_search(&needle);
     }
     u64 total = ktime_get_ns() - start;
-    printk(KERN_INFO "did %d iterations in %d nanoseconds > result = %d\n", n, total, result);
+    printk(KERN_INFO "did %d iterations in %llu nanoseconds > result = %d\n", n, total, result);
     return 0;
 }
 

@@ -1,5 +1,5 @@
 
-#define N 64
+#define N 32
 #define V 2
 static int A[N][N];
 static int B[N][N];
