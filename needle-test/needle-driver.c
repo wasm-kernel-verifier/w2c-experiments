@@ -9,7 +9,6 @@
 #include <linux/kthread.h>
 #include <linux/atomic.h>
 #include <linux/ktime.h>
-
 #include "needle.h"
 #include "needle.c"
 
@@ -23,7 +22,7 @@ MODULE_DESCRIPTION("needle driver");
 MODULE_LICENSE("GPL");
 
 static struct proc_dir_entry *needle_proc_entry;
-static w2c_needle needle;
+static w2c_0x24needle0x2Ewasm needle;
 
 static ssize_t read(struct file *file, char __user *buf, size_t count, loff_t *ppos) {
     if (*ppos > 0)
@@ -32,7 +31,7 @@ static ssize_t read(struct file *file, char __user *buf, size_t count, loff_t *p
     int n = 10000;
     int result = 2;
     for (int i = 0; i < n; i++) {
-        result = w2c_needle_search(&needle);
+        result = w2c_0x24needle0x2Ewasm_search(&needle);
     }
     u64 total = ktime_get_ns() - start;
     printk(KERN_INFO "did %d iterations in %llu nanoseconds > result = %d\n", n, total, result);
@@ -50,8 +49,8 @@ static int __init needle_init(void) {
     wasm_rt_init();
     wasm_rt_set_fuel(1000000);
 
-    wasm2c_needle_instantiate(&needle);
-    w2c_needle_populate(&needle);
+    wasm2c_0x24needle0x2Ewasm_instantiate(&needle);
+    w2c_0x24needle0x2Ewasm_populate(&needle);
     printk(KERN_INFO "needle driver loaded.\n");
     if (!needle_proc_entry)
     return -ENOMEM;
@@ -59,7 +58,7 @@ static int __init needle_init(void) {
 }
 static void __exit needle_exit(void) {
     proc_remove(needle_proc_entry);
-    wasm2c_needle_free(&needle);
+    wasm2c_0x24needle0x2Ewasm_free(&needle);
     wasm_rt_free();
     printk(KERN_INFO "end\n");
 }
