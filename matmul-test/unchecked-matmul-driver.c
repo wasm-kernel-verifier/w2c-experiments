@@ -10,13 +10,13 @@
 #include <linux/atomic.h>
 #include <linux/ktime.h>
 #include "matmul.h"
-#include "matmul.c"
-// #undef wasm_rt_consume_fuel(x)
+#include "unchecked-matmul.c"
+#undef wasm_rt_consume_fuel(x)
 #include "wasm-rt-impl.h"
 #include "wasm-rt-impl.c"
 
 MODULE_AUTHOR("haibib");
-MODULE_DESCRIPTION("matmul driver with fuel");
+MODULE_DESCRIPTION("unchecked matmul driver");
 MODULE_LICENSE("GPL");
 
 #define N 32
@@ -47,7 +47,7 @@ static ssize_t benchmark_matmul(struct file *file, char __user *buf, size_t coun
         times[i] = ktime_get_ns() - start_time;
         printk(KERN_INFO "total_ns=%llu ____", times[i]);
     }
-    printk(KERN_INFO "\nmatmul result: %d\n", result);
+    printk(KERN_INFO "\nunchecked matmul result: %d\n", result);
     return 0;
 }
 
@@ -57,7 +57,7 @@ static const struct proc_ops proc_ops =
 };
 
 static int __init matmul_driver_init(void) {
-    matmul_proc_entry = proc_create("matmul", 0666, NULL, &proc_ops);
+    matmul_proc_entry = proc_create("unchecked-matmul", 0666, NULL, &proc_ops);
     wasm_rt_init();
     wasm_rt_set_fuel(1000000);
     wasm2c_0x24matmul0x2Ewasm_instantiate(&module_instance);
@@ -66,7 +66,7 @@ static int __init matmul_driver_init(void) {
 
 static void __exit matmul_driver_exit(void) {
     proc_remove(matmul_proc_entry);
-    printk(KERN_INFO "matmul-driver: exit\n");
+    printk(KERN_INFO "unchecked-matmul-driver: exit\n");
     wasm2c_0x24matmul0x2Ewasm_free(&module_instance);
     wasm_rt_free();
 }

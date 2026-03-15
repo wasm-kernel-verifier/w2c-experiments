@@ -8,6 +8,7 @@ MODULE_LICENSE("GPL");
 #include "matmul.h"
 #include "wasm-rt-impl.h"
 #define IS_SINGLE_UNSHARED_MEMORY 1
+#define wasm_rt_consume_fuel(x)
 
 // Computes a pointer to an object of the given size in a little-endian memory.
 //
@@ -138,8 +139,8 @@ static inline bool add_overflow(uint64_t a, uint64_t b, uint64_t* resptr) {
 #else
 #define MEMCHECK_DEFAULT32(mem, a, t)                \
   WASM_RT_CHECK_BASE(mem);                           \
-  if (UNLIKELY(a + (uint64_t)sizeof(t) > mem->size)) \
-    TRAP(OOB);
+  // if (UNLIKELY(a + (uint64_t)sizeof(t) > mem->size)) \
+  //   TRAP(OOB);
 #endif
 
 // MEMCHECK_GENERAL can be used for any memory

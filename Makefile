@@ -8,9 +8,9 @@ subdir-ccflags-y += -I$(src)/w2c2/w2c2
 # obj-m += recursion-test/recursion-driver.o
 # obj-m += memfunc-test/memfunc-driver.o
 # obj-m += memfunc-test/r-memfunc-driver.o
-# obj-m += matmul-test/w2c2-matmul-driver.o
 obj-m += matmul-test/matmul-driver.o 
 obj-m += matmul-test/r-matmul-driver.o
+obj-m += matmul-test/unchecked-matmul-driver.o
 # obj-m += needle-test/needle-driver.o
 # obj-m += needle-test/raw-needle-driver.o
 
