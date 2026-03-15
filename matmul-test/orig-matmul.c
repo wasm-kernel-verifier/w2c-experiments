@@ -1,24 +1,28 @@
-
 #define N 32
 #define V 2
-static int A[N][N];
-static int B[N][N];
 
-void populate(void) {
+struct mats {
+    int A[N][N];
+    int B[N][N];
+};
+
+static void populate(struct mats *m) {
+    if (!m) return;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
-            A[i][j] = V;
-            B[i][j] = V;
+            m->A[i][j] = V;
+            m->B[i][j] = V;
         }
     }
 }
 
-int matmul(void) {
+int matmul(struct mats *m) {
+    if (!m) return 0;
     int result = 0;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             for (int k = 0; k < N; k++) {
-                result += A[i][k] * B[k][j];
+                result += m->A[i][k] * m->B[k][j];
             }
         }
     }

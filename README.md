@@ -19,8 +19,8 @@ What's currently in the repo?
 
 - `apt install clang lld` (lld is llvm linker)
 - orig-loop.c executes a trivial loop with 100 iterations. 
-- Compile to loop.wasm through 'clang --target=wasm32-wasip1 -O3 -nostdlib -Wl,--no-entry -Wl,--export-all -o loop-test/loop.wasm loop-test/orig-loop.c'
-- Get loop.c and loop.h through ./wabt/build/wasm2c loop-test/loop.wasm -o loop-test/loop.c
+- Compile to loop.wasm through 'clang --target=wasm32-wasip1 -O3 -nostdlib -Wl,--no-entry -Wl,--export-all -o matmul-test/matmul.wasm matmul-test/orig-matmul.c'
+- Get loop.c and loop.h through './wabt/build/wasm2c matmul-test/matmul.wasm -o matmul-test/matmul.c'
 - Clean up unnecessary math functions and implement helpers in wasm-rt-impl.c
 - insmod shows wasm_rt_trap: code=11 when fuel set below 200
 
@@ -28,13 +28,13 @@ What's currently in the repo?
 
 # HOW TO RUN THE eBPF BENCHMARK
 To compile e-memfunc.c:
-clang -target bpf -g -O2 -c e-memfunc.c -o e-memfunc.o
+clang -target bpf -g -O3 -c matmul-test/e-matmul.c -o matmul-test/e-matmul.o
 
 To load and attach the .o:
-sudo bpftool prog load e-memfunc.o /sys/fs/bpf/memfunc autoattach
+sudo bpftool prog load matmul-test/e-matmul.o /sys/fs/bpf/matmul autoattach
 
 To see trace log:
 sudo bpftool prog tracelog
 
 To remove:
-sudo rm /sys/fs/bpf/memfunc
+sudo rm /sys/fs/bpf/matmul

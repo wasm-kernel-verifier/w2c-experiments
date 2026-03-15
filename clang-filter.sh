@@ -12,6 +12,9 @@ dropped_warnings=0
 
 for a in "$@"; do
   case "$a" in
+    -O2|-Os)
+      out_args+=("-O3")
+      ;;
     -fsanitize=bounds-strict)
       out_args+=("-fsanitize=array-bounds")
       ;;
@@ -70,4 +73,5 @@ fi
 
 out_args+=("-Wno-unknown-warning-option")
 out_args+=("-march=native")
+out_args+=("-fno-optimize-sibling-calls")
 exec "$REAL_CLANG_PATH" "${out_args[@]}"

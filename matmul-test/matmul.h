@@ -35,7 +35,6 @@ typedef struct w2c_0x24matmul0x2Ewasm {
   u32 w2c_0x5F_heap_end;
   u32 w2c_0x5F_memory_base;
   u32 w2c_0x5F_table_base;
-  u32 w2c_0x5F_wasm_first_page_end;
   wasm_rt_memory_t w2c_memory;
 } w2c_0x24matmul0x2Ewasm;
 
@@ -49,14 +48,11 @@ wasm_rt_memory_t* w2c_0x24matmul0x2Ewasm_memory(w2c_0x24matmul0x2Ewasm* instance
 /* export: '__wasm_call_ctors' */
 void w2c_0x24matmul0x2Ewasm_0x5F_wasm_call_ctors(w2c_0x24matmul0x2Ewasm*);
 
-/* export: '__stack_pointer' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_stack_pointer(w2c_0x24matmul0x2Ewasm* instance);
-
 /* export: 'populate' */
-void w2c_0x24matmul0x2Ewasm_populate(w2c_0x24matmul0x2Ewasm*);
+void w2c_0x24matmul0x2Ewasm_populate(w2c_0x24matmul0x2Ewasm*, u32);
 
 /* export: 'matmul' */
-u32 w2c_0x24matmul0x2Ewasm_matmul(w2c_0x24matmul0x2Ewasm*);
+u32 w2c_0x24matmul0x2Ewasm_matmul(w2c_0x24matmul0x2Ewasm*, u32);
 
 /* export: '__dso_handle' */
 u32* w2c_0x24matmul0x2Ewasm_0x5F_dso_handle(w2c_0x24matmul0x2Ewasm* instance);
@@ -84,9 +80,6 @@ u32* w2c_0x24matmul0x2Ewasm_0x5F_memory_base(w2c_0x24matmul0x2Ewasm* instance);
 
 /* export: '__table_base' */
 u32* w2c_0x24matmul0x2Ewasm_0x5F_table_base(w2c_0x24matmul0x2Ewasm* instance);
-
-/* export: '__wasm_first_page_end' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_wasm_first_page_end(w2c_0x24matmul0x2Ewasm* instance);
 
 #ifdef __cplusplus
 }

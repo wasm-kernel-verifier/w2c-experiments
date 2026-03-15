@@ -11,6 +11,7 @@
 #include <linux/ktime.h>
 #include "matmul.h"
 #include "matmul.c"
+// #undef wasm_rt_consume_fuel(x)
 #include "wasm-rt-impl.h"
 #include "wasm-rt-impl.c"
 
@@ -18,21 +19,30 @@ MODULE_AUTHOR("haibib");
 MODULE_DESCRIPTION("matmul driver with fuel");
 MODULE_LICENSE("GPL");
 
+#define N 32
+#define V 2
+
+struct mats {
+    int A[N][N];
+    int B[N][N];
+};
+
 static struct proc_dir_entry *matmul_proc_entry;
 static w2c_0x24matmul0x2Ewasm module_instance;
+static struct mats mats_global;
 
 static ssize_t benchmark_matmul(struct file *file, char __user *buf, size_t count, loff_t *ppos) {
-    w2c_0x24matmul0x2Ewasm_populate(&module_instance);
+    w2c_0x24matmul0x2Ewasm_populate(&module_instance, (u32)&mats_global);
     int num = 10;
     int result = 0;
     u64 times[num];
     for (int i = 0; i < num; i++) {
         u64 start_time = ktime_get_ns();
-        result = w2c_0x24matmul0x2Ewasm_matmul(&module_instance);
+        result = w2c_0x24matmul0x2Ewasm_matmul(&module_instance,(u32)&mats_global);
         times[i] = ktime_get_ns() - start_time;
         printk(KERN_INFO "total_ns=%llu ____", times[i]);
     }
-    printk(KERN_INFO "\nraw matmul result: %d\n", result);
+    printk(KERN_INFO "\nmatmul result: %d\n", result);
     return 0;
 }
 
