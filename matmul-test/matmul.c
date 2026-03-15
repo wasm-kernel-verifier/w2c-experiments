@@ -2,8 +2,22 @@
 #include <linux/kernel.h>
 #include <linux/string.h>
 #include <linux/module.h>
-
-MODULE_LICENSE("GPL");
+// #include <assert.h>
+// #include <math.h>
+// #include <stdarg.h>
+// #include <stddef.h>
+// #include <string.h>
+// #if defined(__MINGW32__)
+// #include <malloc.h>
+// #elif defined(_MSC_VER)
+// #include <intrin.h>
+// #include <malloc.h>
+// #define alloca _alloca
+// #elif defined(__FreeBSD__) || defined(__OpenBSD__)
+// #include <stdlib.h>
+// #else
+// #include <alloca.h>
+// #endif
 
 #include "matmul.h"
 #include "wasm-rt-impl.h"
@@ -812,8 +826,7 @@ void w2c_0x24matmul0x2Ewasm_populate_0(w2c_0x24matmul0x2Ewasm* instance, u32 var
   u64 var_j1;
   var_i0 = var_p0;
   var_i0 = !(var_i0);
-  if (var_i0) {wasm_rt_consume_fuel(1);
-  goto var_B0;}
+  if (var_i0) {goto var_B0;}
   var_i0 = 4294963200u;
   var_l1 = var_i0;
   var_L1: 
@@ -996,8 +1009,7 @@ void w2c_0x24matmul0x2Ewasm_populate_0(w2c_0x24matmul0x2Ewasm* instance, u32 var
     var_i1 = 128u;
     var_i0 += var_i1;
     var_l1 = var_i0;
-    if (var_i0) {wasm_rt_consume_fuel(1);
-    goto var_L1;}
+    if (var_i0) {goto var_L1;}
   var_B0:;
   FUNC_EPILOGUE;
 }
@@ -1016,8 +1028,7 @@ u32 w2c_0x24matmul0x2Ewasm_matmul_0(w2c_0x24matmul0x2Ewasm* instance, u32 var_p0
       var_i24, var_i25, var_i26, var_i27, var_i28, var_i29, var_i30, var_i31, 
       var_i32;
   var_i0 = var_p0;
-  if (var_i0) {wasm_rt_consume_fuel(1);
-  goto var_B0;}
+  if (var_i0) {goto var_B0;}
   var_i0 = 0u;
   goto var_Bfunc;
   var_B0:;
@@ -1367,16 +1378,14 @@ u32 w2c_0x24matmul0x2Ewasm_matmul_0(w2c_0x24matmul0x2Ewasm* instance, u32 var_p0
       var_i1 = 4u;
       var_i0 += var_i1;
       var_l36 = var_i0;
-      if (var_i0) {wasm_rt_consume_fuel(1);
-      goto var_L2;}
+      if (var_i0) {goto var_L2;}
     var_i0 = var_l1;
     var_i1 = 1u;
     var_i0 += var_i1;
     var_l1 = var_i0;
     var_i1 = 32u;
     var_i0 = var_i0 != var_i1;
-    if (var_i0) {wasm_rt_consume_fuel(1);
-    goto var_L1;}
+    if (var_i0) {goto var_L1;}
   var_i0 = var_l2;
   var_Bfunc:;
   FUNC_EPILOGUE;
