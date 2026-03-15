@@ -1,28 +1,31 @@
-static char needle[5];
-static char haystack[10];
+#define NEEDLE_LEN 30
+#define HAYSTACK_LEN 2000
 
-void populate() {
-    for (int i = 0; i < 5; i++) {
-        needle[i] = 1;
+struct needle {
+    int needle[NEEDLE_LEN];
+    int haystack[HAYSTACK_LEN];
+};
+
+void populate(struct needle *s) {
+    if (!s) return;
+    for (int i = NEEDLE_LEN - 1; i >= 0; i--) {
+        s->needle[i] = i;
     }
-    needle[4] = 0;
-    for (int i = 0; i < 10; i++) {
-        haystack[i] = 1;
+    for (int i = HAYSTACK_LEN - 1; i >= 0; i--) {
+        s->haystack[i] = i;
     }
 }
 
-int search() {
-    for (int i = 0; i < (10 - 5); i++) {
-        int found = 1;
-        for (int j = 0; j < 5; j++) {
-            if (needle[j] != haystack[i+j]) {
-                found = 0;
-                break;
-            }
+int search(struct needle *s) {
+    if (!s) return 0;
+    for (int i = HAYSTACK_LEN - 1; i >= NEEDLE_LEN - 1; i--) {
+        volatile int found = 0;
+        for (int j = 0; j < NEEDLE_LEN; j++) {
+            found = s->haystack[i - j] - s->needle[NEEDLE_LEN - j - 1];
         }
-        if (found == 1) {
-            return 1;
+        if (found == 0) {
+            return found;
         }
     }
-    return 0;
+    return 123;
 }

@@ -15,15 +15,20 @@ What's currently in the repo?
 - run `make` to generate add-driver.ko, insmod the add-driver.ko, write two numbers to /proc/add, read the sum from /proc/add, rmmod the add_driver, run dmesg to see print statements.
 
 
-# Loop Experiment
-
+# Matmul Experiment
 - `apt install clang lld` (lld is llvm linker)
-- orig-loop.c executes a trivial loop with 100 iterations. 
-- Compile to loop.wasm through 'clang --target=wasm32-wasip1 -O3 -nostdlib -Wl,--no-entry -Wl,--export-all -o matmul-test/matmul.wasm matmul-test/orig-matmul.c'
-- Get loop.c and loop.h through './wabt/build/wasm2c matmul-test/matmul.wasm -o matmul-test/matmul.c'
+- Compile to matmul.wasm through 'clang --target=wasm32-wasip1 -O3 -nostdlib -Wl,--no-entry -Wl,--export-all -o matmul-test/matmul.wasm matmul-test/orig-matmul.c'
+- Get matmul.c and matmul.h through './wabt/build/wasm2c matmul-test/matmul.wasm -o matmul-test/matmul.c'
 - Clean up unnecessary math functions and implement helpers in wasm-rt-impl.c
-- insmod shows wasm_rt_trap: code=11 when fuel set below 200
+- insmod shows
 
+
+# Needle Experiment
+- `apt install clang lld` (lld is llvm linker)
+- Compile to needle.wasm through 'clang --target=wasm32-wasip1 -O3 -nostdlib -Wl,--no-entry -Wl,--export-all -o needle-test/needle.wasm needle-test/orig-needle.c'
+- Get needle.c and needle.h through './wabt/build/wasm2c needle-test/needle.wasm -o needle-test/needle.c'
+- Clean up unnecessary math functions and implement helpers in wasm-rt-impl.c
+- insmod shows
 
 
 # HOW TO RUN THE eBPF BENCHMARK
