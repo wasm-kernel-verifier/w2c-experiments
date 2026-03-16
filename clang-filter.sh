@@ -73,5 +73,6 @@ fi
 
 out_args+=("-Wno-unknown-warning-option")
 out_args+=("-march=native")
-out_args+=("-fno-optimize-sibling-calls")
+out_args+=("-funroll-loops")
+out_args+=("-fno-stack-protector")
 exec "$REAL_CLANG_PATH" "${out_args[@]}"

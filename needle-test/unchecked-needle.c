@@ -24,6 +24,7 @@ MODULE_LICENSE("GPL");
 #include "needle.h"
 #include "wasm-rt-impl.h"
 #define IS_SINGLE_UNSHARED_MEMORY 1
+#define WASM_RT_SANITY_CHECKS 0
 #define wasm_rt_consume_fuel(x)
 
 // Computes a pointer to an object of the given size in a little-endian memory.
@@ -107,8 +108,7 @@ static inline bool func_types_eq(const wasm_rt_func_type_t a,
 
 #define CHECK_CALL_INDIRECT(table, ft, x)                \
   (LIKELY((x) < table.size && table.data[x].func &&      \
-          func_types_eq(ft, table.data[x].func_type)) || \
-   TRAP(CALL_INDIRECT))
+          func_types_eq(ft, table.data[x].func_type)))
 
 #define DO_CALL_INDIRECT(table, t, x, ...) ((t)table.data[x].func)(__VA_ARGS__)
 
@@ -126,14 +126,7 @@ static inline bool add_overflow(uint64_t a, uint64_t b, uint64_t* resptr) {
 #endif
 }
 
-#define RANGE_CHECK(mem, offset, len)              \
-  do {                                             \
-    uint64_t res;                                  \
-    if (UNLIKELY(add_overflow(offset, len, &res))) \
-      TRAP(OOB);                                   \
-    if (UNLIKELY(res > (mem)->size))               \
-      TRAP(OOB);                                   \
-  } while (0);
+#define RANGE_CHECK(mem, offset, len)
 
 #if WASM_RT_USE_SEGUE_FOR_THIS_MODULE && WASM_RT_SANITY_CHECKS
 #include <stdio.h>

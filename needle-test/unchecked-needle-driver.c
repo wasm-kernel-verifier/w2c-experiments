@@ -19,8 +19,8 @@ MODULE_AUTHOR("emma");
 MODULE_DESCRIPTION("needle driver");
 MODULE_LICENSE("GPL");
 
-#define NEEDLE_LEN 30
-#define HAYSTACK_LEN 2000
+#define NEEDLE_LEN 10
+#define HAYSTACK_LEN 5000
 
 struct needle {
     int needle[NEEDLE_LEN];
