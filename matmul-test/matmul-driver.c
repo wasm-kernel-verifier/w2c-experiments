@@ -38,14 +38,14 @@ static ssize_t benchmark_matmul(struct file *file, char __user *buf, size_t coun
         return -EINVAL;
     }
     wasm_rt_set_fuel(1000000);
-    w2c_0x24matmul0x2Ewasm_populate(&module_instance, wasm_off);
-    int num = 10;
+    w2c_matmul_populate(&module_instance, wasm_off);
+    int num = 110;
     int result = 0;
     u64 times[num];
     for (int i = 0; i < num; i++) {
         wasm_rt_set_fuel(1000000);
         u64 start_time = ktime_get_ns();
-        result = w2c_0x24matmul0x2Ewasm_matmul(&module_instance, wasm_off);
+        result = w2c_matmul_matmul(&module_instance, wasm_off);
         times[i] = ktime_get_ns() - start_time;
         printk(KERN_INFO "total_ns=%llu ____", times[i]);
     }
@@ -61,14 +61,14 @@ static const struct proc_ops proc_ops =
 static int __init matmul_driver_init(void) {
     matmul_proc_entry = proc_create("matmul", 0666, NULL, &proc_ops);
     wasm_rt_init();
-    wasm2c_0x24matmul0x2Ewasm_instantiate(&module_instance);
+    wasm2c_matmul_instantiate(&module_instance);
     return 0;
 }
 
 static void __exit matmul_driver_exit(void) {
     proc_remove(matmul_proc_entry);
     printk(KERN_INFO "matmul-driver: exit\n");
-    wasm2c_0x24matmul0x2Ewasm_free(&module_instance);
+    wasm2c_matmul_free(&module_instance);
     wasm_rt_free();
 }
 

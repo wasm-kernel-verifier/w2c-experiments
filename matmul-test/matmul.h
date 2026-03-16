@@ -48,6 +48,9 @@ wasm_rt_memory_t* w2c_matmul_memory(w2c_matmul* instance);
 /* export: '__wasm_call_ctors' */
 void w2c_matmul_0x5F_wasm_call_ctors(w2c_matmul*);
 
+/* export: 'populate' */
+u32 w2c_matmul_populate(w2c_matmul*, u32);
+
 /* export: 'matmul' */
 u32 w2c_matmul_matmul(w2c_matmul*, u32);
 

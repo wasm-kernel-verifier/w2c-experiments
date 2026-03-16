@@ -20,7 +20,7 @@ static struct mats mats_global;
 
 static ssize_t benchmark_matmul(struct file *file, char __user *buf, size_t count, loff_t *ppos) {
     populate(&mats_global);
-    int num = 10;
+    int num = 110;
     int result = 0;
     u64 times[num];
     for (int i = 0; i < num; i++) {
