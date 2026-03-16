@@ -24,8 +24,6 @@ int detect_execve() {
 		__u64 start = bpf_ktime_get_ns();
         result = search(needle_global);
 		times[i] = bpf_ktime_get_ns() - start;
-    }
-	for (int i = 0; i < n; i++) {
         bpf_printk("%llu\n", times[i]);
     }
 	bpf_printk("result: %d\n", result);

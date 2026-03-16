@@ -27,7 +27,7 @@ static ssize_t benchmark_matmul(struct file *file, char __user *buf, size_t coun
         u64 start_time = ktime_get_ns();
         result = matmul(&mats_global);
         times[i] = ktime_get_ns() - start_time;
-        printk(KERN_INFO "total_ns=%llu ____", times[i]);
+        printk(KERN_INFO "%llu ____", times[i]);
     }
     printk(KERN_INFO "\nraw matmul result: %d\n", result);
     return 0;
