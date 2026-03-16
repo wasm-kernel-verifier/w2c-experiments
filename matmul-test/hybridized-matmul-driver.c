@@ -37,11 +37,13 @@ static ssize_t benchmark_matmul(struct file *file, char __user *buf, size_t coun
         printk(KERN_ERR "wasm heap base is zero; cannot run\n");
         return -EINVAL;
     }
+    wasm_rt_set_fuel(1000000);
     w2c_0x24matmul0x2Ewasm_populate(&module_instance, wasm_off);
     int num = 10;
     int result = 0;
     u64 times[num];
     for (int i = 0; i < num; i++) {
+        wasm_rt_set_fuel(1000000);
         u64 start_time = ktime_get_ns();
         result = w2c_0x24matmul0x2Ewasm_matmul(&module_instance, wasm_off);
         times[i] = ktime_get_ns() - start_time;
@@ -59,7 +61,6 @@ static const struct proc_ops proc_ops =
 static int __init matmul_driver_init(void) {
     matmul_proc_entry = proc_create("hybridized-matmul", 0666, NULL, &proc_ops);
     wasm_rt_init();
-    wasm_rt_set_fuel(1000000);
     wasm2c_0x24matmul0x2Ewasm_instantiate(&module_instance);
     return 0;
 }

@@ -17,16 +17,16 @@ What's currently in the repo?
 
 # Matmul Experiment
 - `apt install clang lld` (lld is llvm linker)
-- Compile to matmul.wasm through 'clang --target=wasm32-wasip1 -O3 -nostdlib -Wl,--no-entry -Wl,--export-all -o matmul-test/matmul.wasm matmul-test/orig-matmul.c'
-- Get matmul.c and matmul.h through './wabt/build/wasm2c matmul-test/matmul.wasm -o matmul-test/matmul.c'
+- Compile to matmul.wasm through 'clang --target=wasm32 -O3 -nostdlib -Wl,--no-entry -Wl,--export-all -o matmul-test/matmul.wasm matmul-test/orig-matmul.c'
+- Get matmul.c and matmul.h through './wabt/build/wasm2c --no-debug-names --module-name=matmul --num-outputs=1 matmul-test/matmul.wasm -o matmul-test/matmul.c'
 - Clean up unnecessary math functions and implement helpers in wasm-rt-impl.c
 - insmod shows
 
 
 # Needle Experiment
 - `apt install clang lld` (lld is llvm linker)
-- Compile to needle.wasm through 'clang --target=wasm32-wasip1 -O3 -nostdlib -Wl,--no-entry -Wl,--export-all -o needle-test/needle.wasm needle-test/orig-needle.c'
-- Get needle.c and needle.h through './wabt/build/wasm2c needle-test/needle.wasm -o needle-test/needle.c'
+- Compile to needle.wasm through 'clang --target=wasm32 -O3 -nostdlib -Wl,--no-entry -Wl,--export-all -o needle-test/needle.wasm needle-test/orig-needle.c'
+- Get needle.c and needle.h through './wabt/build/wasm2c --no-debug-names --module-name=needle --num-outputs=1 needle-test/needle.wasm -o needle-test/needle.c'
 - Clean up unnecessary math functions and implement helpers in wasm-rt-impl.c
 - insmod shows
 

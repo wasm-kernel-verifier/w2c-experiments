@@ -4,6 +4,7 @@
 
 #include "wasm-rt.h"
 
+// #include <stdint.h>
 #include <linux/types.h>
 
 #ifndef WASM_RT_CORE_TYPES_DEFINED
@@ -24,8 +25,7 @@ typedef double f64;
 extern "C" {
 #endif
 
-typedef struct w2c_0x24matmul0x2Ewasm {
-  u32 w2c_0x5F_stack_pointer;
+typedef struct w2c_matmul {
   u32 w2c_0x5F_dso_handle;
   u32 w2c_0x5F_data_end;
   u32 w2c_0x5F_stack_low;
@@ -36,50 +36,47 @@ typedef struct w2c_0x24matmul0x2Ewasm {
   u32 w2c_0x5F_memory_base;
   u32 w2c_0x5F_table_base;
   wasm_rt_memory_t w2c_memory;
-} w2c_0x24matmul0x2Ewasm;
+} w2c_matmul;
 
-void wasm2c_0x24matmul0x2Ewasm_instantiate(w2c_0x24matmul0x2Ewasm*);
-void wasm2c_0x24matmul0x2Ewasm_free(w2c_0x24matmul0x2Ewasm*);
-wasm_rt_func_type_t wasm2c_0x24matmul0x2Ewasm_get_func_type(uint32_t param_count, uint32_t result_count, ...);
+void wasm2c_matmul_instantiate(w2c_matmul*);
+void wasm2c_matmul_free(w2c_matmul*);
+wasm_rt_func_type_t wasm2c_matmul_get_func_type(uint32_t param_count, uint32_t result_count, ...);
 
 /* export: 'memory' */
-wasm_rt_memory_t* w2c_0x24matmul0x2Ewasm_memory(w2c_0x24matmul0x2Ewasm* instance);
+wasm_rt_memory_t* w2c_matmul_memory(w2c_matmul* instance);
 
 /* export: '__wasm_call_ctors' */
-void w2c_0x24matmul0x2Ewasm_0x5F_wasm_call_ctors(w2c_0x24matmul0x2Ewasm*);
-
-/* export: 'populate' */
-void w2c_0x24matmul0x2Ewasm_populate(w2c_0x24matmul0x2Ewasm*, u32);
+void w2c_matmul_0x5F_wasm_call_ctors(w2c_matmul*);
 
 /* export: 'matmul' */
-u32 w2c_0x24matmul0x2Ewasm_matmul(w2c_0x24matmul0x2Ewasm*, u32);
+u32 w2c_matmul_matmul(w2c_matmul*, u32);
 
 /* export: '__dso_handle' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_dso_handle(w2c_0x24matmul0x2Ewasm* instance);
+u32* w2c_matmul_0x5F_dso_handle(w2c_matmul* instance);
 
 /* export: '__data_end' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_data_end(w2c_0x24matmul0x2Ewasm* instance);
+u32* w2c_matmul_0x5F_data_end(w2c_matmul* instance);
 
 /* export: '__stack_low' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_stack_low(w2c_0x24matmul0x2Ewasm* instance);
+u32* w2c_matmul_0x5F_stack_low(w2c_matmul* instance);
 
 /* export: '__stack_high' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_stack_high(w2c_0x24matmul0x2Ewasm* instance);
+u32* w2c_matmul_0x5F_stack_high(w2c_matmul* instance);
 
 /* export: '__global_base' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_global_base(w2c_0x24matmul0x2Ewasm* instance);
+u32* w2c_matmul_0x5F_global_base(w2c_matmul* instance);
 
 /* export: '__heap_base' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_heap_base(w2c_0x24matmul0x2Ewasm* instance);
+u32* w2c_matmul_0x5F_heap_base(w2c_matmul* instance);
 
 /* export: '__heap_end' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_heap_end(w2c_0x24matmul0x2Ewasm* instance);
+u32* w2c_matmul_0x5F_heap_end(w2c_matmul* instance);
 
 /* export: '__memory_base' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_memory_base(w2c_0x24matmul0x2Ewasm* instance);
+u32* w2c_matmul_0x5F_memory_base(w2c_matmul* instance);
 
 /* export: '__table_base' */
-u32* w2c_0x24matmul0x2Ewasm_0x5F_table_base(w2c_0x24matmul0x2Ewasm* instance);
+u32* w2c_matmul_0x5F_table_base(w2c_matmul* instance);
 
 #ifdef __cplusplus
 }

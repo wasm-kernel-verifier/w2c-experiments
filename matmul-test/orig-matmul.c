@@ -6,14 +6,15 @@ struct mats {
     int B[N][N];
 };
 
-static void populate(struct mats *m) {
-    if (!m) return;
+int populate(struct mats *m) {
+    if (!m) return 0;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             m->A[i][j] = V;
             m->B[i][j] = V;
         }
     }
+    return 0;
 }
 
 int matmul(struct mats *m) {

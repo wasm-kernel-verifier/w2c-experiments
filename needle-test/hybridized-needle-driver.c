@@ -28,18 +28,20 @@ struct needle {
 };
 
 static struct proc_dir_entry *needle_proc_entry;
-static w2c_0x24needle0x2Ewasm module_instance;
+static w2c_needle module_instance;
 static struct needle needle_global;
 
 static ssize_t benchmark_search(struct file *file, char __user *buf, size_t count, loff_t *ppos) {
     u32 wasm_off = module_instance.w2c_0x5F_heap_base;
-    w2c_0x24needle0x2Ewasm_populate(&module_instance, wasm_off);
+    wasm_rt_set_fuel(1000000);
+    w2c_needle_populate(&module_instance, wasm_off);
 	const int n = 110;
 	int times[110];
 	int result = 0;
 	for (int i = 0; i < n; i++) {
+        wasm_rt_set_fuel(1000000);
 		__u64 start = ktime_get_ns();
-        result = w2c_0x24needle0x2Ewasm_search(&module_instance, wasm_off);
+        result = w2c_needle_search(&module_instance, wasm_off);
 		times[i] = ktime_get_ns() - start;
     }
 	for (int i = 0; i < n; i++) {
@@ -58,17 +60,15 @@ static const struct proc_ops proc_ops =
 static int __init needle_init(void) {
     needle_proc_entry = proc_create("hybridized-needle", 0666, NULL, &proc_ops);
     wasm_rt_init();
-    wasm_rt_set_fuel(1000000);
-
-    wasm2c_0x24needle0x2Ewasm_instantiate(&module_instance);
-    printk(KERN_INFO "hybridized needle driver loaded.\n");
+    wasm2c_needle_instantiate(&module_instance);
+    printk(KERN_INFO "needle driver loaded.\n");
     if (!needle_proc_entry)
     return -ENOMEM;
     return 0;
 }
 static void __exit needle_exit(void) {
     proc_remove(needle_proc_entry);
-    wasm2c_0x24needle0x2Ewasm_free(&module_instance);
+    wasm2c_needle_free(&module_instance);
     wasm_rt_free();
     printk(KERN_INFO "end\n");
 }
