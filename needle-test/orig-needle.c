@@ -1,5 +1,5 @@
-#define NEEDLE_LEN 30
-#define HAYSTACK_LEN 2000
+#define NEEDLE_LEN 10
+#define HAYSTACK_LEN 5000
 
 struct needle {
     int needle[NEEDLE_LEN];
@@ -18,14 +18,21 @@ void populate(struct needle *s) {
 
 int search(struct needle *s) {
     if (!s) return 0;
+    int found_outer = 1;
     for (int i = HAYSTACK_LEN - 1; i >= NEEDLE_LEN - 1; i--) {
-        volatile int found = 0;
+        int found = 0;
         for (int j = 0; j < NEEDLE_LEN; j++) {
-            found = s->haystack[i - j] - s->needle[NEEDLE_LEN - j - 1];
+            found = found | (s->haystack[i - j] - s->needle[NEEDLE_LEN - j - 1]);
         }
-        if (found == 0) {
-            return found;
-        }
+        // found is 0 iff string was found at i
+        found = found | ((found & 0x55555555) >> 1);
+        found = found | ((found & 0x44444444) >> 2);
+        found = found | ((found & 0x10101010) >> 4);
+        found = found | ((found & 0x01000100) >> 8);
+        found = found | ((found & 0x00010000) >> 16);
+        // found has bit 0 set iff string was NOT found at i
+        
+        found_outer &= found;
     }
-    return 123;
+    return found_outer;
 }
