@@ -10,10 +10,10 @@ subdir-ccflags-y += -I$(src)/w2c2/w2c2
 # obj-m += memfunc-test/raw-memfunc-driver.o
 # obj-m += matmul-test/matmul-driver.o 
 # obj-m += matmul-test/raw-matmul-driver.o
-# obj-m += matmul-test/unchecked-matmul-driver.o
+# obj-m += matmul-test/hybridized-matmul-driver.o
 obj-m += needle-test/needle-driver.o
 obj-m += needle-test/raw-needle-driver.o
-obj-m += needle-test/unchecked-needle-driver.o
+obj-m += needle-test/hybridized-needle-driver.o
 
 all:
 	make LLVM=1 CC=$(PWD)/clang-filter.sh -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules

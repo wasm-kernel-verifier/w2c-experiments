@@ -10,7 +10,7 @@
 #include <linux/atomic.h>
 #include <linux/ktime.h>
 #include "needle.h"
-#include "unchecked-needle.c"
+#include "hybridized-needle.c"
 #undef wasm_rt_consume_fuel(x)
 #include "wasm-rt-impl.h"
 #include "wasm-rt-impl.c"
@@ -56,12 +56,12 @@ static const struct proc_ops proc_ops =
 
 // Custom init and exit methods
 static int __init needle_init(void) {
-    needle_proc_entry = proc_create("unchecked-needle", 0666, NULL, &proc_ops);
+    needle_proc_entry = proc_create("hybridized-needle", 0666, NULL, &proc_ops);
     wasm_rt_init();
     wasm_rt_set_fuel(1000000);
 
     wasm2c_0x24needle0x2Ewasm_instantiate(&module_instance);
-    printk(KERN_INFO "unchecked needle driver loaded.\n");
+    printk(KERN_INFO "hybridized needle driver loaded.\n");
     if (!needle_proc_entry)
     return -ENOMEM;
     return 0;
