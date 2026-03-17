@@ -34,17 +34,17 @@ static ssize_t benchmark_search(struct file *file, char __user *buf, size_t coun
     u32 wasm_off = module_instance.w2c_0x5F_heap_base;
     wasm_rt_set_fuel(1000000);
     w2c_needle_populate(&module_instance, wasm_off);
-	const int n = 110;
+	const int num = 110;
 	int times[110];
 	int result = 0;
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < num; i++) {
         wasm_rt_set_fuel(1000000);
 		__u64 start = ktime_get_ns();
         result = w2c_needle_search(&module_instance, wasm_off);
 		times[i] = ktime_get_ns() - start;
     }
-	for (int i = 0; i < n; i++) {
-        printk("%llu\n", times[i]);
+	for (int i = 0; i < num; i++) {
+        printk(KERN_INFO "%llu ____", times[i]);
     }
 	printk("result: %d\n", result);
     return 0;

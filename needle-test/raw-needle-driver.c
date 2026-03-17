@@ -21,16 +21,16 @@ static struct needle needle_global;
 
 static ssize_t benchmark_search(struct file *file, char __user *buf, size_t count, loff_t *ppos) {
     populate(&needle_global);
-	const int n = 110;
+	const int num = 110;
 	int times[110];
 	int result = 0;
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < num; i++) {
 		__u64 start = ktime_get_ns();
         result = search(&needle_global);
 		times[i] = ktime_get_ns() - start;
     }
-	for (int i = 0; i < n; i++) {
-        printk("%llu\n", times[i]);
+	for (int i = 0; i < num; i++) {
+        printk(KERN_INFO "%llu ____", times[i]);
     }
 	printk("result: %d\n", result);
     return 0;

@@ -237,7 +237,6 @@ static inline void load_data(u8* dest, const u8* src, size_t n) {
     t1 result;                                                         \
     wasm_rt_memcpy(&result, MEM_ADDR_MEMOP(mem, addr, sizeof(t1)),     \
                    sizeof(t1));                                        \
-    force_read(result);                                                \
     return (t3)(t2)result;                                             \
   }                                                                    \
   DEF_MEM_CHECKS0(name, _, t1, return, t3)

@@ -17,13 +17,15 @@ int detect_execve() {
     __u32 key = 0;
     struct mats *m = bpf_map_lookup_elem(&mats_map, &key);
     populate(m);
-    int num = 110;
+    int num = 50;
     int result = 0;
-    __u64 times[110];
+    __u64 times[50];
     for (int i = 0; i < num; i++) {
         __u64 start = bpf_ktime_get_ns();
         result = matmul(m);
         times[i] = bpf_ktime_get_ns() - start;
+    }
+    for (int i = 0; i < num; i++) {
         bpf_printk("%llu\n", times[i]);
     }
     bpf_printk("final value of test: %d\n", result);

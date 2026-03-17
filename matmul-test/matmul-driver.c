@@ -47,6 +47,8 @@ static ssize_t benchmark_matmul(struct file *file, char __user *buf, size_t coun
         u64 start_time = ktime_get_ns();
         result = w2c_matmul_matmul(&module_instance, wasm_off);
         times[i] = ktime_get_ns() - start_time;
+    }
+    for (int i = 0; i < num; i++) {
         printk(KERN_INFO "%llu ____", times[i]);
     }
     printk(KERN_INFO "\nmatmul result: %d\n", result);

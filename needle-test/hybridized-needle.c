@@ -238,17 +238,14 @@ static inline void load_data(u8* dest, const u8* src, size_t n) {
 
 #define DEFINE_LOAD(name, t1, t2, t3, force_read)                      \
   static inline t3 name##_unchecked(wasm_rt_memory_t* mem, u64 addr) { \
-    t1 result = *(t1*)(mem->data + addr); \
-    force_read(result); \
-    return (t3)(t2)result; \
+    return (t3)(t2)*(t1*)(mem->data + addr); \
   }                                                                    \
   DEF_MEM_CHECKS0(name, _, t1, return, t3)
 
 #define DEFINE_STORE(name, t1, t2)                                     \
   static inline void name##_unchecked(wasm_rt_memory_t* mem, u64 addr, \
                                       t2 value) {                      \
-    t1 wrapped = (t1)value; \
-    *(t1*)(mem->data + addr) = wrapped; \
+    *(t1*)(mem->data + addr) = (t1)value; \
   }                                                                    \
   DEF_MEM_CHECKS1(name, _, t1, , void, t2)
 

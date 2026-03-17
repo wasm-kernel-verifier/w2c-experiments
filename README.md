@@ -32,8 +32,8 @@ What's currently in the repo?
 
 
 # HOW TO RUN THE eBPF BENCHMARK
-To compile e-memfunc.c:
-clang -target bpf -g -O3 -c matmul-test/e-matmul.c -o matmul-test/e-matmul.o
+To compile e-matmul.c:
+clang -target bpf -g -O3 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -ffast-math -funroll-loops -fomit-frame-pointer -nostdlib -c matmul-test/e-matmul.c -o matmul-test/e-matmul.o
 
 To load and attach the .o:
 sudo bpftool prog load matmul-test/e-matmul.o /sys/fs/bpf/matmul autoattach
@@ -43,3 +43,16 @@ sudo bpftool prog tracelog
 
 To remove:
 sudo rm /sys/fs/bpf/matmul
+
+
+To compile e-needle.c:
+clang -target bpf -g -O3 -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -ffast-math -funroll-loops -fomit-frame-pointer -nostdlib -c needle-test/e-needle.c -o needle-test/e-needle.o
+
+To load and attach the .o:
+sudo bpftool prog load needle-test/e-needle.o /sys/fs/bpf/needle autoattach
+
+To see trace log:
+sudo bpftool prog tracelog
+
+To remove:
+sudo rm /sys/fs/bpf/needle

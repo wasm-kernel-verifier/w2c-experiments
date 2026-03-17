@@ -17,13 +17,15 @@ int detect_execve() {
     __u32 key = 0;
     struct needle *needle_global = bpf_map_lookup_elem(&needle_map, &key);
     populate(needle_global);
-	const int n = 110;
-	int times[110];
+	const int num = 50;
+	__u64 times[50];
 	int result = 0;
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < num; i++) {
 		__u64 start = bpf_ktime_get_ns();
         result = search(needle_global);
 		times[i] = bpf_ktime_get_ns() - start;
+    }
+    for (int i = 0; i < num; i++) {
         bpf_printk("%llu\n", times[i]);
     }
 	bpf_printk("result: %d\n", result);
